@@ -675,9 +675,54 @@
     .mini-pods::before { content: ''; position: absolute; left: 2px; right: 2px; top: 24px; height: 1px; background: #88809066; }
     .mini-pods::after { content: ''; position: absolute; width: 4px; height: 3px; background: #5b9a73; border-radius: 50%; top: 43px; left: 53px; }
     @media (prefers-reduced-motion: reduce) { .mini-device { transition: none; } }
+
+    html { scroll-padding-top: 100px; }
+    .scroll-progress { position: fixed; top: 0; left: 0; height: 2px; width: 100%; transform: scaleX(0); transform-origin: left; z-index: 60; background: linear-gradient(90deg, #64517e, #d1baf9); box-shadow: 0 0 12px #b7a1eb66; pointer-events: none; }
+    .section-label { display: block; color: #9f91b3; font-size: .6rem; text-transform: uppercase; letter-spacing: .24em; margin-bottom: 1.2rem; }
+    .orbital-transition { height: 85px; position: relative; overflow: hidden; opacity: .7; pointer-events: none; }
+    .orbital-transition::before { content: ''; position: absolute; left: -10%; right: -10%; top: 50%; height: 120px; border-radius: 50%; border-top: 1px solid #bba3ef33; box-shadow: 0 -10px 45px -20px #ae82eb; }
+    .orbital-transition::after { content: ''; position: absolute; left: -15%; top: calc(50% - 1px); width: 15%; height: 1px; background: linear-gradient(90deg, transparent, #ead8ff, transparent); animation: horizon-signal 14s ease-in-out infinite; }
+    .orbit-story { position: relative; padding-block: 4rem 5rem; overflow: hidden; }
+    .orbit-story-grid { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 5rem; }
+    .orbit-art { position: relative; height: 330px; display: grid; place-items: center; perspective: 700px; }
+    .eclipse { width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle at 65% 75%, #0b0912 45%, #2a1d3c 80%, #c8a0f5); box-shadow: -7px -5px 22px -9px #d5acff, 0 0 75px #a06be01a; }
+    .story-orbit { position: absolute; width: 290px; height: 290px; border: 1px solid #bba3ef30; border-radius: 50%; transform: rotateX(65deg) rotateZ(-25deg); }
+    .story-orbit.two { width: 340px; height: 340px; transform: rotateX(55deg) rotateY(-25deg); opacity: .5; }
+    .story-orbit i { position: absolute; inset: -1px; border-radius: 50%; animation: orbital-spin 22s linear infinite; }
+    .story-orbit i::after { content: ''; position: absolute; top: 50%; left: -3px; width: 5px; height: 5px; border-radius: 50%; background: #eadbff; box-shadow: 0 0 14px #c19aff; }
+    .story-orbit.two i { animation-duration: 32s; animation-direction: reverse; }
+    .orbit-caption { position: absolute; bottom: 0; font-size: .5rem; letter-spacing: .2em; color: #7e718f; text-transform: uppercase; }
+    .orbit-story h2 { font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.1; letter-spacing: -.055em; font-weight: 500; margin-bottom: 1.5rem; }
+    .orbit-story h2 span { color: #b9a5d9; }
+    .orbit-tabs { display: flex; gap: 1.5rem; border-bottom: 1px solid #ffffff12; margin-bottom: 1.5rem; }
+    .orbit-tab { font: inherit; font-size: .78rem; color: #8e859d; background: none; border: 0; border-bottom: 1px solid transparent; padding: .8rem 0; cursor: pointer; }
+    .orbit-tab[aria-selected="true"] { color: #e2d6f4; border-color: #cbb0ee; }
+    .orbit-panel { min-height: 132px; }
+    .orbit-panel p { color: #a49aaf; line-height: 1.8; font-size: .9rem; max-width: 440px; }
+    .orbit-panel a { display: inline-block; color: #e4d4fc; text-decoration: none; font-size: .75rem; margin-top: 1.4rem; }
+    .orbit-panel.entering { animation: panel-enter .45s ease both; }
+    [hidden] { display: none !important; }
+    .catalog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+    .category-btn { border-radius: 7px; }
+    .catalog-note { text-align: center; font-size: .65rem; color: #8e839d; letter-spacing: .03em; margin-top: 1.5rem; }
+    .reveal { transition-delay: var(--reveal-delay, 0ms); }
+    @keyframes horizon-signal { 0%, 20% { transform: translateX(0); opacity: 0; } 35% { opacity: 1; } 70%, 100% { transform: translateX(850%); opacity: 0; } }
+    @keyframes orbital-spin { to { transform: rotate(360deg); } }
+    @keyframes panel-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    @media (max-width: 700px) {
+      .orbit-story-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .orbit-art { height: 260px; order: 2; }
+      .story-orbit { width: 240px; height: 240px; }
+      .story-orbit.two { width: 280px; height: 280px; }
+      .eclipse { width: 125px; height: 125px; }
+      .orbit-story { padding-block: 2rem 3rem; }
+      .orbital-transition { height: 50px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .orbit-panel.entering { animation: none; } }
   </style>
 </head>
 <body>
+  <div class="scroll-progress" aria-hidden="true"></div>
   <div class="space-scene" aria-hidden="true"><canvas id="starfield"></canvas></div>
   <button class="motion-toggle" type="button" aria-pressed="false">Пауза анимации</button>
 
@@ -695,7 +740,7 @@
       <nav class="nav">
         <ul class="nav-links">
           <li><a href="/" class="active">Главная</a></li>
-          <li><a href="/catalog">Каталог</a></li>
+          <li><a href="#catalog">Каталог</a></li>
           <li><a href="#about">О нас</a></li>
           <li><a href="#reviews">Отзывы</a></li>
           <li><a href="#promo">Акции</a></li>
@@ -736,7 +781,7 @@
   <!-- Popular Products -->
   <section class="products-section section-pad">
     <div class="container">
-      <h2 class="products-title">Популярные товары</h2>
+      <span class="section-label">01 / На нашей орбите</span><h2 class="products-title">Техника, которая вдохновляет.</h2>
       <div class="products-grid">
         <!-- Product 1 -->
         <div class="product-card">
@@ -795,15 +840,36 @@
         </div>
       </div>
       <div style="text-align: center;">
-        <a href="/catalog" class="cta-glow">Перейти в каталог</a>
+        <a href="#catalog" class="cta-glow">Перейти в каталог</a>
       </div>
     </div>
   </section>
 
+
+  <div class="orbital-transition" aria-hidden="true"></div>
+  <section class="orbit-story" id="discover" aria-labelledby="orbit-title">
+    <div class="container orbit-story-grid">
+      <div class="orbit-art" aria-hidden="true"><div class="eclipse"></div><div class="story-orbit"><i></i></div><div class="story-orbit two"><i></i></div><span class="orbit-caption">Different worlds. One ecosystem.</span></div>
+      <div>
+        <span class="section-label">02 / Твоя траектория</span>
+        <h2 id="orbit-title">Больше возможностей.<br><span>В твоём ритме.</span></h2>
+        <div class="orbit-tabs" role="tablist" aria-label="Для каких задач нужна техника">
+          <button class="orbit-tab" id="tab-create" role="tab" aria-selected="true" aria-controls="panel-create" data-orbit="create">Создавать</button>
+          <button class="orbit-tab" id="tab-connect" role="tab" aria-selected="false" aria-controls="panel-connect" tabindex="-1" data-orbit="connect">Быть на связи</button>
+          <button class="orbit-tab" id="tab-move" role="tab" aria-selected="false" aria-controls="panel-move" tabindex="-1" data-orbit="move">Двигаться</button>
+        </div>
+        <div class="orbit-panel" id="panel-create" role="tabpanel" aria-labelledby="tab-create" tabindex="0"><p>От первой идеи до финального кадра. Mac — пространство для дизайна, монтажа и проектов, которым нужен большой экран.</p><a href="#catalog" data-select-category="Mac">Исследовать Mac →</a></div>
+        <div class="orbit-panel" id="panel-connect" role="tabpanel" aria-labelledby="tab-connect" tabindex="0" hidden><p>Лови моменты, делись идеями, оставайся рядом. iPhone объединяет камеру, общение и привычные приложения в одном устройстве.</p><a href="#catalog" data-select-category="iPhone">Исследовать iPhone →</a></div>
+        <div class="orbit-panel" id="panel-move" role="tabpanel" aria-labelledby="tab-move" tabindex="0" hidden><p>Музыка в наушниках, активность на запястье. Apple Watch и AirPods помогают держать собственный ритм в течение дня.</p><a href="#catalog" data-select-category="Watch">Исследовать Watch →</a></div>
+      </div>
+    </div>
+  </section>
+  <div class="orbital-transition" aria-hidden="true"></div>
+
   <!-- Catalog Section -->
   <section class="catalog-section" id="catalog">
     <div class="container">
-      <h2 class="catalog-title">Каталог</h2>
+      <span class="section-label" style="text-align:center">03 / Найди своё устройство</span><h2 class="catalog-title">Твоя следующая возможность.</h2>
       <p class="catalog-description">
         Оригинальная техника Apple — iPhone, Mac, Watch, iPad и аксессуары.
         Выберите категорию и добавьте устройство в корзину.
@@ -814,15 +880,15 @@
         <button class="category-btn">iPhone</button>
         <button class="category-btn">Mac</button>
         <button class="category-btn">Watch</button>
-        <button class="category-btn soon">Accessories <span style="font-size: 0.7rem;">(скоро)</span></button>
+        <button class="category-btn">AirPods</button>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-        <!-- Product Card Example -->
-        <div class="product-card">
+      <div class="catalog-grid" id="catalog-grid">
+        <!-- Product 1 -->
+        <div class="product-card" data-category="iPhone">
           <div class="product-img" role="img" aria-label="iPhone 18 Pro"><div class="mini-device mini-phone" aria-hidden="true"><i></i><b></b></div></div>
           <div class="product-name">iPhone 18 Pro Max 256GB</div>
-          <p class="product-description">A18 Pro, 6.7", 48MP камера</p>
+          <p class="product-description">От 129 900 ₽ • Синий спектр</p>
           <div class="product-price">
             <span>119 900 ₽</span>
           </div>
@@ -831,8 +897,50 @@
             <button class="product-btn product-btn-primary">+</button>
           </div>
         </div>
-        <!-- More products would be listed here -->
+
+        <!-- Product 2 -->
+        <div class="product-card" data-category="Mac">
+          <div class="product-img" role="img" aria-label="MacBook Pro"><div class="mini-device mini-laptop" aria-hidden="true"><i></i><b></b></div></div>
+          <div class="product-name">MacBook Pro 14" M4</div>
+          <p class="product-description">От 149 900 ₽ • Серая</p>
+          <div class="product-price">
+            <span>139 900 ₽</span>
+          </div>
+          <div class="product-actions">
+            <button class="product-btn product-btn-secondary">↗</button>
+            <button class="product-btn product-btn-primary">+</button>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card" data-category="Watch">
+          <div class="product-img" role="img" aria-label="Apple Watch"><div class="mini-device mini-watch" aria-hidden="true"><i></i><b></b></div></div>
+          <div class="product-name">Apple Watch Ultra 2</div>
+          <p class="product-description">От 59 900 ₽ • Чёрный</p>
+          <div class="product-price">
+            <span>49 900 ₽</span>
+          </div>
+          <div class="product-actions">
+            <button class="product-btn product-btn-secondary">↗</button>
+            <button class="product-btn product-btn-primary">+</button>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card" data-category="AirPods">
+          <div class="product-img" role="img" aria-label="AirPods Pro"><div class="mini-device mini-pods" aria-hidden="true"><i></i><b></b></div></div>
+          <div class="product-name">AirPods Pro (3rd Gen)</div>
+          <p class="product-description">От 34 900 ₽ • Белые</p>
+          <div class="product-price">
+            <span>29 900 ₽</span>
+          </div>
+          <div class="product-actions">
+            <button class="product-btn product-btn-secondary">↗</button>
+            <button class="product-btn product-btn-primary">+</button>
+          </div>
+        </div>
       </div>
+      <p class="catalog-note" aria-live="polite" id="catalog-count">4 устройства в коллекции</p>
     </div>
   </section>
 
@@ -910,8 +1018,9 @@
   <!-- Test Banner -->
   <section class="banner" id="promo">
     <div class="banner-content container">
-      <h2 class="banner-h2">Узнай, какая техника подходит тебе больше всего</h2>
-      <a href="#catalog" class="cta-glow">Пройти тест</a>
+      <h2 class="banner-h2">У каждой идеи своя орбита.
+        Найди свою.</h2>
+      <a href="#discover" class="cta-glow">Найти свою траекторию →</a>
       <div style="margin-top: 1rem; font-size: 0.875rem; color: rgba(255, 255, 255, 0.6);">
         <a href="/" style="color: #16c7d4; text-decoration: none;">Новости магазина только для своих →</a>
       </div>
@@ -975,7 +1084,14 @@
     const canvas = document.getElementById('starfield'), ctx = canvas.getContext('2d');
     const toggle = document.querySelector('.motion-toggle'), reduced = matchMedia('(prefers-reduced-motion: reduce)');
     let paused = reduced.matches, frame = null, previous = null, time = 0, w = 0, h = 0, dpr = 1;
-    let mouse = { x: 0, y: 0 }, target = { x: 0, y: 0 };
+    let mouse = { x: 0, y: 0 }, target = { x: 0, y: 0 }, scroll = 0;
+    const progress = document.querySelector('.scroll-progress');
+    const device = document.querySelector('.device');
+    function updateScroll() {
+      scroll = window.scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight);
+      progress.style.transform = `scaleX(${scroll})`;
+    }
+    addEventListener('scroll', updateScroll, {passive: true}); updateScroll();
     const mobile = () => w < 700;
     function resize() {
       w = innerWidth; h = innerHeight; dpr = Math.min(devicePixelRatio || 1, 2);
@@ -987,7 +1103,7 @@
       if (!ctx) return;
       ctx.clearRect(0, 0, w, h);
       const cx = w * (mobile() ? .7 : .77) + mouse.x * 22;
-      const cy = h * .46 + mouse.y * 18;
+      const cy = h * (.46 - scroll * .15) + mouse.y * 18;
       const scale = Math.min(w, h) * .58;
       const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, scale * 1.3);
       glow.addColorStop(0, '#73509b38'); glow.addColorStop(.5, '#522e7125'); glow.addColorStop(1, '#06060900');
@@ -1001,7 +1117,7 @@
           const warp = Math.sin(angle * 3 + time * .22 + ring * .13) * scale * .018;
           const x = Math.cos(angle) * (radius + warp);
           const y = Math.sin(angle) * (radius + warp);
-          const tilt = .33 + Math.sin(time * .12) * .12;
+          const tilt = .33 + Math.sin(time * .12 + scroll * 2) * .12;
           const px = cx + x * .84 - y * tilt;
           const py = cy + x * .44 + y * tilt;
           if (!step) ctx.moveTo(px, py); else ctx.lineTo(px, py);
@@ -1024,14 +1140,30 @@
           ctx.beginPath();ctx.moveTo(px, py);ctx.lineTo(px + Math.sin(angle)*24, py - Math.cos(angle)*12);ctx.stroke();
         }
       }
+      // A bright pulse sweeps around the inclined orbital field.
+      for (let j = 0; j < 45; j++) {
+        const angle = time * .21 + j * .006;
+        const radius = scale * 1.03;
+        const x = Math.cos(angle) * radius, y = Math.sin(angle) * radius;
+        ctx.fillStyle = `rgba(219, 193, 255, ${j / 45 * .65})`;
+        ctx.beginPath(); ctx.arc(cx + x*.84-y*.37, cy+x*.44+y*.37, .5+j/60, 0, Math.PI*2);ctx.fill();
+      }
+      // One infrequent, restrained deep-space trail.
+      const comet = (time % 18) / 3;
+      if (comet < 1) {
+        const x = w * (1.05 - comet * .6), y = h * (.07 + comet * .42);
+        const trail = ctx.createLinearGradient(x, y, x+100, y-65);
+        trail.addColorStop(0, '#dcc5ff88'); trail.addColorStop(1, '#dcc5ff00');
+        ctx.strokeStyle = trail; ctx.lineWidth = 1; ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+100,y-65);ctx.stroke();
+      }
       ctx.globalCompositeOperation = 'source-over';
     }
     function animate(now) {
       frame = null; if (paused || document.hidden) return;
       if (previous !== null) time += Math.min((now - previous) / 1000, .05);
       previous = now; mouse.x += (target.x - mouse.x)*.035; mouse.y += (target.y - mouse.y)*.035;
-      document.querySelector('.device').style.setProperty('--tilt-x', `${mouse.x * 20}deg`);
-      document.querySelector('.device').style.setProperty('--tilt-y', `${-mouse.y * 12}deg`);
+      device.style.setProperty('--tilt-x', `${mouse.x * 20}deg`);
+      device.style.setProperty('--tilt-y', `${-mouse.y * 12}deg`);
       draw(); frame = requestAnimationFrame(animate);
     }
     function sync() {
@@ -1051,10 +1183,45 @@
     const observer = 'IntersectionObserver' in window ? new IntersectionObserver(entries => entries.forEach(entry => {
       if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
     }), {threshold: .08}) : null;
-    document.querySelectorAll('.product-card, .feature-card, .review-card, .products-title, .about-title, .banner').forEach(el => {
+    document.querySelectorAll('.product-card, .feature-card, .review-card, .products-title, .about-title, .orbit-story-grid, .banner').forEach(el => {
       if (observer) { el.classList.add('reveal'); observer.observe(el); }
     });
-    resize(); sync();
+    // Tabs keep a single panel visible and support the standard arrow-key navigation.
+    const tabs = [...document.querySelectorAll('.orbit-tab')];
+    function selectTab(tab, focus = false) {
+      tabs.forEach(item => {
+        const active = item === tab;
+        item.setAttribute('aria-selected', String(active)); item.tabIndex = active ? 0 : -1;
+        const panel = document.getElementById(item.getAttribute('aria-controls'));
+        panel.hidden = !active; panel.classList.toggle('entering', active && !paused);
+      });
+      if (focus) tab.focus();
+    }
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => selectTab(tab));
+      tab.addEventListener('keydown', event => {
+        let next;
+        if (event.key === 'ArrowRight') next = (index+1)%tabs.length;
+        if (event.key === 'ArrowLeft') next = (index+tabs.length-1)%tabs.length;
+        if (event.key === 'Home') next = 0;
+        if (event.key === 'End') next = tabs.length-1;
+        if (next !== undefined) { event.preventDefault(); selectTab(tabs[next], true); }
+      });
+    });
+    const filters = [...document.querySelectorAll('.category-btn')];
+    function filterCatalog(category) {
+      filters.forEach(button => { const active = button.textContent.trim() === category; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)); });
+      let count = 0;
+      document.querySelectorAll('#catalog-grid .product-card').forEach(card => {
+        card.hidden = category !== 'Все' && card.dataset.category !== category;
+        if (!card.hidden) { count++; card.classList.add('visible'); }
+      });
+      document.getElementById('catalog-count').textContent = `В коллекции: ${count}`;
+    }
+    filters.forEach(button => button.addEventListener('click', () => filterCatalog(button.textContent.trim())));
+    document.querySelectorAll('[data-select-category]').forEach(link => link.addEventListener('click', () => filterCatalog(link.dataset.selectCategory)));
+    document.querySelectorAll('.products-grid .product-card, .about-grid .feature-card').forEach((card, index) => card.style.setProperty('--reveal-delay', `${index % 4 * 70}ms`));
+    filterCatalog('Все'); resize(); sync();
   })();
   </script>
 </body>
