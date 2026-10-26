@@ -558,94 +558,127 @@
       .header { padding: 1rem; }
     }
 
-    /* Decorative universe stays behind the entire storefront. */
-    body { background: #040610; isolation: isolate; }
-    .space-scene { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
-      background: radial-gradient(ellipse at 75% 20%, #24164b 0%, transparent 55%),
-                  radial-gradient(ellipse at 10% 75%, #092b40 0%, transparent 55%), #040610; }
-    #starfield { width: 100%; height: 100%; display: block; }
-    .nebula { position: absolute; inset: -20%; opacity: .45;
-      background: radial-gradient(ellipse at 30% 40%, #6934aa66, transparent 40%),
-                  radial-gradient(ellipse at 75% 65%, #168baa44, transparent 35%);
-      animation: nebula-drift 35s ease-in-out infinite alternate; }
-    .planet { position: absolute; border-radius: 50%; animation: orbit-float 18s ease-in-out infinite alternate; }
-    .planet-large { width: clamp(130px, 23vw, 330px); aspect-ratio: 1; right: -5%; top: 15%;
-      background: radial-gradient(circle at 28% 25%, #b1c9f7 0%, #6676b6 18%, #39336b 43%, #100f25 72%);
-      box-shadow: inset -25px -20px 45px #02040c, 0 0 65px #8578ed22; opacity: .75; }
-    .planet-ring { width: 190%; height: 35%; position: absolute; left: -45%; top: 32%;
-      border: 13px solid #969cce55; border-left-color: #bac6f788; border-radius: 50%;
-      transform: rotate(-30deg); box-shadow: 0 0 0 5px #aabce71a, 0 0 0 12px #aabce711; }
-    .planet-small { width: clamp(55px, 8vw, 110px); aspect-ratio: 1; left: 5%; top: 68%;
-      background: radial-gradient(circle at 30% 25%, #9ddfe6, #287c98 30%, #0b203b 70%);
-      box-shadow: 0 0 40px #1e9cb522; animation-duration: 24s; }
-    .spacecraft { position: absolute; width: 66px; left: -100px; top: 48%;
-      filter: drop-shadow(0 0 12px #61def088); animation: spacecraft-flight 38s linear infinite; }
-    .spacecraft svg { width: 100%; display: block; }
-    .meteor { position: absolute; left: 70%; top: -10%; width: 150px; height: 2px;
-      background: linear-gradient(90deg, transparent, #abdeff); border-radius: 50%;
-      opacity: 0; transform: rotate(135deg); animation: meteor-flight 13s linear infinite; }
-    .meteor.second { left: 40%; animation-delay: 6s; animation-duration: 19s; }
-    .motion-toggle { position: fixed; right: 18px; bottom: 18px; z-index: 45; padding: 10px 15px;
-      border: 1px solid #b2c6ff40; border-radius: 24px; color: #dce8ff; background: #0a1026e8;
-      font: inherit; font-size: 12px; cursor: pointer; backdrop-filter: blur(12px); }
-    .motion-toggle:focus-visible { outline: 2px solid #6ce4ee; outline-offset: 4px; }
-    .motion-paused .space-scene * { animation-play-state: paused !important; }
-    .hero { padding: 7rem 0 8rem; }
-    .hero-content { position: relative; }
-    .hero-h1 { font-size: clamp(2.25rem, 5vw, 4.5rem); letter-spacing: -.045em; line-height: 1.08; }
-    .hero-p { line-height: 1.7; color: #bec6db; }
-    .hero-eyebrow { color: #8cdae8; text-transform: uppercase; letter-spacing: .22em;
-      font-size: .7rem; margin-bottom: 1.7rem; }
-    .hero-actions { align-items: center; }
-    .hero-actions .product-btn { padding: 1rem 2rem; text-decoration: none; }
-    .product-card, .feature-card, .review-card { background: #0c1025c9; backdrop-filter: blur(12px); border-color: #a3b8ed26; }
-    .product-card:hover { border-color: #79c5ed66; box-shadow: 0 15px 45px #132c6855; }
-    .icon-btn { position: relative; }
-    .logo-mark { color: #92dcf5; font-size: 32px; }
-    @keyframes nebula-drift { to { transform: translate(5%, -4%) rotate(8deg); } }
-    @keyframes orbit-float { to { transform: translate(-15px, -35px) rotate(8deg); } }
-    @keyframes spacecraft-flight {
-      0% { transform: translate(0, 90px) rotate(-15deg); }
-      100% { transform: translate(calc(100vw + 220px), -240px) rotate(-15deg); }
-    }
-    @keyframes meteor-flight {
-      0%, 88% { opacity: 0; transform: translate(0, 0) rotate(135deg); }
-      90% { opacity: .8; }
-      100% { opacity: 0; transform: translate(-65vw, 65vh) rotate(135deg); }
-    }
+
+    :root { --accent: #b5a5ff; }
+    body { background: #060609; color: #f3f2f7; isolation: isolate; }
+    ::selection { background: #7861ce; color: white; }
+    .space-scene { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: #060609; }
+    #starfield { display: block; width: 100%; height: 100%; }
+    .space-scene::after { content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, #060609bb, transparent 70%), linear-gradient(0deg, #060609 0%, transparent 55%); }
+    .header-shell { background: #08080ca6; border-color: #ffffff0e; }
+    .header { padding: 1.25rem 3rem; }
+    .logo-mark { font-size: 34px; color: #d6cdff; }
+    .logo-name { font-size: 1.25rem; letter-spacing: -.05em; }
+    .logo-tagline { font-size: .55rem; letter-spacing: .25em; margin-top: 6px; }
+    .icon-btn { position: relative; background: transparent; border-color: #ffffff18; }
+    .nav-links { gap: .3rem; }
+    .nav-links a { font-size: .8rem; }
+    .nav-links a.active { background: #ffffff0c; color: #fff; }
+    .badge { background: #b7a6ee; color: #0c0819; box-shadow: none; width: 15px; height: 15px; font-size: .55rem; }
+    .hero { min-height: 790px; min-height: min(900px, calc(100svh - 85px)); padding: 6rem 0 4rem; display: flex; align-items: center; overflow: hidden; }
+    .hero-content { max-width: 1440px; width: 100%; text-align: left; position: relative; z-index: 2; padding-inline: 6%; }
+    .hero-eyebrow { font-size: .62rem; letter-spacing: .24em; text-transform: uppercase; color: #beb5d7; display: flex; align-items: center; gap: 12px; margin-bottom: 2rem; }
+    .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #b9a0ff; box-shadow: 0 0 15px #b9a0ff; }
+    .hero-h1 { font-size: clamp(3.5rem, 7.4vw, 7rem); line-height: .99; letter-spacing: -.075em; font-weight: 600; max-width: 720px; margin-bottom: 1.8rem; }
+    .hero-h1 span { background: linear-gradient(100deg, #eee9ff 5%, #b7a3f5 45%, #665681 80%); background-clip: text; -webkit-background-clip: text; }
+    .hero-p { max-width: 390px; font-size: .95rem; line-height: 1.8; color: #a29eaf; }
+    .hero-actions { justify-content: flex-start; align-items: center; gap: 1.5rem; }
+    .cta-glow { background: #ede9fa; color: #181122; border-radius: 7px; padding: 1rem 1.5rem; font-size: .8rem; box-shadow: 0 0 35px #b6a0ff16; }
+    .cta-glow:hover { box-shadow: 0 0 40px #baa4ff44; transform: translateY(-3px); }
+    .hero-actions .product-btn { border: none; background: transparent; color: #d6cfdf; text-decoration: none; font-size: .8rem; padding: 1rem 0; }
+    .hero-meta { margin-top: 4rem; display: flex; gap: 2rem; font-size: .58rem; letter-spacing: .12em; text-transform: uppercase; color: #7d778d; }
+    .hero-meta b { color: #ccc5d9; font-weight: 500; }
+    .device-stage { position: absolute; right: 6%; top: 12%; width: 33%; height: 70%; perspective: 1100px; z-index: 1; pointer-events: none; }
+    .device-float { width: 100%; height: 100%; animation: levitate 9s ease-in-out infinite; }
+    .device { position: absolute; width: 218px; height: 440px; left: 50%; top: 50%; border-radius: 39px; transform: translate(-50%, -50%) rotateY(calc(-23deg + var(--tilt-x, 0deg))) rotateX(var(--tilt-y, 0deg)) rotateZ(14deg);
+      background: linear-gradient(120deg, #635e70, #17151e 25%, #2a2633 70%, #6e667b); border: 2px solid #bdb0ce88;
+      box-shadow: 12px 8px 0 -5px #403947, 16px 10px 0 -6px #a79aad88, 35px 45px 70px #0009, -20px -10px 90px #ae83ff22; }
+    .device::before { content: ''; position: absolute; inset: 7px; border-radius: 32px; background: #08070c; border: 1px solid #ffffff16; }
+    .device-screen { position: absolute; inset: 9px; overflow: hidden; border-radius: 30px;
+      background: radial-gradient(ellipse at 80% 10%, #e0c6ff, transparent 45%), linear-gradient(145deg, #2d143d, #090711 65%); }
+    .device-screen::before, .device-screen::after { content: ''; position: absolute; width: 360px; height: 360px; border-radius: 50%; border: 1px solid #edc9ff88; top: 30%; left: -50%; box-shadow: 0 0 28px #b779ff88, inset 0 0 45px #a58aff55; animation: screen-orbit 12s ease-in-out infinite alternate; }
+    .device-screen::after { width: 280px; height: 280px; left: -35%; top: 40%; animation-delay: -6s; }
+    .device-island { position: absolute; width: 72px; height: 21px; top: 18px; left: calc(50% - 36px); border-radius: 20px; background: #050507; z-index: 2; }
+    .device-label { position: absolute; bottom: 5%; right: 0; font-size: .58rem; color: #b8aacb; letter-spacing: .2em; text-transform: uppercase; border-top: 1px solid #cdb8ff33; padding-top: 12px; }
+    .section-pad { padding-block: 5rem; }
+    .products-section { background: linear-gradient(#0b0a10dd, #08080de8); border-top: 1px solid #ffffff0e; }
+    .container { max-width: 1340px; padding-inline: 3rem; }
+    .products-title, .catalog-title, .reviews-title, .about-title { font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.055em; font-weight: 500; }
+    .products-title { text-align: left; margin-bottom: 2rem; }
+    .product-card, .feature-card, .review-card { border: 1px solid #ffffff0d; background: linear-gradient(145deg, #18151eaa, #0b0a10dd); border-radius: 14px; transition: transform .4s, border-color .4s, box-shadow .4s; }
+    .product-card { position: relative; overflow: hidden; }
+    .product-card::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%), #c6a0ff15, transparent 75%); }
+    .product-card:hover { transform: translateY(-7px); border-color: #bba1e54d; box-shadow: 0 20px 50px #0005; }
+    .product-img { background: radial-gradient(ellipse at 50% 60%, #79708020, transparent 70%); height: 200px; color: #bcb3c9; font-size: 1rem; letter-spacing: -.03em; }
+    .product-name { font-weight: 500; font-size: 1rem; }
+    .product-price { font-size: 1.25rem; font-weight: 500; }
+    .product-btn-primary, .category-btn.active, .feature-icon, .feature-icon.star { background: #c3b3e6; color: #171020; }
+    .product-btn { border-radius: 7px; }
+    .product-description, .feature-text, .review-comment { color: #aaa2b6; }
+    .about-title span { background-image: linear-gradient(100deg, #d5c3f5, #8a70b3); }
+    .banner { background: radial-gradient(ellipse at 50% 100%, #49305f66, transparent 70%), #100d17; border: 1px solid #bda4e322; border-radius: 16px; margin-inline: 2rem; }
+    .footer { background: #07060be8; border-top: 1px solid #ffffff0b; }
+    .motion-toggle { position: fixed; right: 18px; bottom: 18px; z-index: 45; border: 1px solid #ffffff20; border-radius: 30px; padding: 10px 14px; background: #100d18df; color: #c4bacf; font: inherit; font-size: 11px; cursor: pointer; backdrop-filter: blur(10px); }
+    :focus-visible { outline: 2px solid #c4a8ff; outline-offset: 5px; }
+    .motion-paused *, .motion-paused *::before, .motion-paused *::after { animation-play-state: paused !important; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @keyframes levitate { 0%, 100% { transform: translateY(-12px) rotate(-2deg); } 50% { transform: translateY(15px) rotate(2deg); } }
+    @keyframes screen-orbit { to { transform: translate(30px, -40px) scale(1.1); } }
     @media (min-width: 1200px) { .nav { display: block; } }
+    @media (max-width: 900px) {
+      .hero { min-height: auto; padding-top: 4rem; padding-bottom: 3rem; }
+      .hero-content { padding-inline: 6%; }
+      .hero-h1 { font-size: clamp(3.5rem, 9vw, 5.5rem); max-width: 65%; }
+      .hero-p { max-width: 52%; }
+      .device-stage { right: 0; width: 36%; top: 10%; height: 65%; }
+      .device { width: 160px; height: 325px; border-radius: 30px; }
+      .device-screen { border-radius: 22px; }
+      .device-label { right: 20px; font-size: .45rem; }
+      .header { padding: 1rem 1.25rem; }
+    }
     @media (max-width: 600px) {
-      .hero { padding: 5rem 0; }
-      .planet-large { right: -70px; top: 25%; opacity: .45; }
+      .hero { padding-top: 3rem; }
+      .hero-h1 { max-width: 100%; font-size: clamp(3.2rem, 13vw, 4.5rem); }
+      .hero-p { max-width: 100%; font-size: .875rem; }
+      .device-stage { position: relative; top: auto; right: auto; height: 330px; width: 100%; margin-top: 1rem; order: 2; }
+      .hero { flex-direction: column; }
+      .device { width: 150px; height: 300px; }
+      .device-label { right: 8%; bottom: 10%; }
+      .hero-meta { margin-top: 2rem; gap: 1rem; font-size: .5rem; }
+      .hero-eyebrow { font-size: .5rem; margin-bottom: 1.5rem; }
       .container { padding-inline: 1.25rem; }
+      .logo-name { font-size: 1rem; }
       .header-actions { gap: .4rem; }
-      .logo-name { font-size: 1.15rem; }
+      .icon-btn { width: 32px; height: 32px; }
       .footer-bottom { flex-direction: column; gap: 1rem; padding-bottom: 3rem; }
+      .banner { margin-inline: 1rem; padding: 2rem 1rem; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .space-scene * { animation: none !important; }
-      .product-card, .cta-glow, .product-btn { transition: none; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
     }
+
+    .mini-device { position: relative; transition: transform .7s cubic-bezier(.2,.7,.2,1); transform: rotate(-8deg); }
+    .product-card:hover .mini-device { transform: translateY(-8px) rotate(0deg) scale(1.06); }
+    .mini-phone { width: 70px; height: 140px; border-radius: 15px; border: 2px solid #8b8498; background: linear-gradient(145deg, #a89ba9, #3d3747 70%); box-shadow: 5px 6px 0 #25212d, 15px 20px 35px #0006; }
+    .mini-phone i { position: absolute; top: 8px; left: 7px; width: 31px; height: 34px; background: radial-gradient(circle at 8px 9px, #090b14 0 5px, #6b6378 6px 7px, transparent 8px), radial-gradient(circle at 23px 23px, #090b14 0 5px, #6b6378 6px 7px, transparent 8px), #817788; border-radius: 8px; }
+    .mini-phone b { position: absolute; top: 64px; left: 27px; width: 15px; height: 18px; border-radius: 50% 50% 45% 45%; background: #c6bac533; }
+    .mini-laptop { width: 155px; height: 100px; border: 4px solid #6a6572; border-radius: 8px; background: radial-gradient(ellipse at 30% 20%, #bd94dc, #4c366b 40%, #100b19 80%); transform: perspective(500px) rotateY(-12deg) rotateX(6deg); box-shadow: 10px 18px 30px #0006; }
+    .mini-laptop::after { content: ''; position: absolute; left: -14px; right: -14px; bottom: -10px; height: 8px; border-radius: 1px 1px 50% 50%; background: linear-gradient(#b0a8ba, #4c4656); }
+    .mini-watch { width: 55px; height: 150px; border-radius: 19px; background: repeating-linear-gradient(0deg, #272430 0 4px, #383241 4px 6px); box-shadow: 10px 20px 30px #0006; }
+    .mini-watch i { position: absolute; top: 39px; left: -13px; width: 81px; height: 83px; border: 4px solid #8d8796; border-radius: 24px; background: radial-gradient(circle, transparent 38%, #b9a1e1 40% 44%, transparent 46%), #0d0c13; }
+    .mini-watch b { position: absolute; left: 26px; top: 57px; width: 2px; height: 25px; background: #eee3ff; transform-origin: bottom; transform: rotate(35deg); }
+    .mini-pods { width: 110px; height: 80px; border-radius: 26px 26px 34px 34px; background: linear-gradient(130deg, #fff, #d4d0dc 70%, #98919f); box-shadow: inset 0 -4px 9px #514a6544, 12px 15px 30px #0006; }
+    .mini-pods::before { content: ''; position: absolute; left: 2px; right: 2px; top: 24px; height: 1px; background: #88809066; }
+    .mini-pods::after { content: ''; position: absolute; width: 4px; height: 3px; background: #5b9a73; border-radius: 50%; top: 43px; left: 53px; }
+    @media (prefers-reduced-motion: reduce) { .mini-device { transition: none; } }
   </style>
 </head>
 <body>
-  <div class="space-scene" aria-hidden="true">
-    <div class="nebula"></div>
-    <canvas id="starfield"></canvas>
-    <div class="planet planet-large"><div class="planet-ring"></div></div>
-    <div class="planet planet-small"></div>
-    <div class="spacecraft">
-      <svg viewBox="0 0 100 60" fill="none">
-        <path d="M30 22 4 30l26 8-9-8Z" fill="#64dfff" opacity=".7"/>
-        <path d="m37 20 6-16 20 17M37 40l6 16 20-17" fill="#7779c8"/>
-        <path d="M25 30Q58 2 94 30 58 58 25 30Z" fill="#d6e5f7"/>
-        <path d="M25 30h69Q58 58 25 30Z" fill="#737caa"/>
-        <circle cx="65" cy="27" r="8" fill="#0b2847" stroke="#66dbef" stroke-width="3"/>
-      </svg>
-    </div>
-    <div class="meteor"></div><div class="meteor second"></div>
-  </div>
+  <div class="space-scene" aria-hidden="true"><canvas id="starfield"></canvas></div>
   <button class="motion-toggle" type="button" aria-pressed="false">Пауза анимации</button>
 
   <!-- Header -->
@@ -671,15 +704,15 @@
 
       <div class="header-actions">
         <div class="icon-btn" title="Избранное">
-          ❤️
+          ♡
           <span class="badge">3</span>
         </div>
         <div class="icon-btn" title="Корзина">
-          🛒
+          ⊞
           <span class="badge">2</span>
         </div>
         <a href="/login" class="icon-btn" title="Войти">
-          🔑
+          ↗
         </a>
       </div>
     </div>
@@ -688,22 +721,16 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content container">
-      <p class="hero-eyebrow">Твоя вселенная технологий</p>
-      <h1 class="hero-h1">
-        Открой для себя<br>
-        <span>превосходное качество</span><br>
-        в каждой детали!
-      </h1>
-      <p class="hero-p">
-        В iSpace техника — не просто устройства, а искусство.
-        Приглашаем вас в уникальное путешествие, где каждый
-        продукт — встреча с идеальным вкусом технологий.
-      </p>
+      <p class="hero-eyebrow">iSpace Studio / Beyond the ordinary</p>
+      <h1 class="hero-h1">Технологии.<br><span>За гранью<br>обычного.</span></h1>
+      <p class="hero-p">Новый взгляд на привычное. Оригинальная техника Apple для тех, кто выбирает больше возможностей.</p>
       <div class="hero-actions">
         <a href="#catalog" class="cta-glow">Выбрать технику</a>
-        <a href="/cart" class="product-btn product-btn-secondary">Сделать заказ</a>
+        <a href="#about" class="product-btn product-btn-secondary">О коллекции →</a>
       </div>
+      <div class="hero-meta"><span><b>01 /</b> Оригинальная техника</span><span><b>02 /</b> Внимание к деталям</span></div>
     </div>
+    <div class="device-stage" aria-hidden="true"><div class="device-float"><div class="device"><div class="device-screen"></div><div class="device-island"></div></div></div><div class="device-label">Designed for possibility / 2026</div></div>
   </section>
 
   <!-- Popular Products -->
@@ -713,56 +740,56 @@
       <div class="products-grid">
         <!-- Product 1 -->
         <div class="product-card">
-          <div class="product-img">iPhone 18 Pro</div>
+          <div class="product-img" role="img" aria-label="iPhone 18 Pro"><div class="mini-device mini-phone" aria-hidden="true"><i></i><b></b></div></div>
           <div class="product-name">iPhone 18 Pro Max 256GB</div>
           <p class="product-description">От 129 900 ₽ • Синий спектр</p>
           <div class="product-price">
             <span>119 900 ₽</span>
           </div>
           <div class="product-actions">
-            <button class="product-btn product-btn-secondary">📖</button>
+            <button class="product-btn product-btn-secondary">↗</button>
             <button class="product-btn product-btn-primary">+</button>
           </div>
         </div>
 
         <!-- Product 2 -->
         <div class="product-card">
-          <div class="product-img">MacBook Pro</div>
+          <div class="product-img" role="img" aria-label="MacBook Pro"><div class="mini-device mini-laptop" aria-hidden="true"><i></i><b></b></div></div>
           <div class="product-name">MacBook Pro 14" M4</div>
           <p class="product-description">От 149 900 ₽ • Серая</p>
           <div class="product-price">
             <span>139 900 ₽</span>
           </div>
           <div class="product-actions">
-            <button class="product-btn product-btn-secondary">📖</button>
+            <button class="product-btn product-btn-secondary">↗</button>
             <button class="product-btn product-btn-primary">+</button>
           </div>
         </div>
 
         <!-- Product 3 -->
         <div class="product-card">
-          <div class="product-img">Apple Watch</div>
+          <div class="product-img" role="img" aria-label="Apple Watch"><div class="mini-device mini-watch" aria-hidden="true"><i></i><b></b></div></div>
           <div class="product-name">Apple Watch Ultra 2</div>
           <p class="product-description">От 59 900 ₽ • Чёрный</p>
           <div class="product-price">
             <span>49 900 ₽</span>
           </div>
           <div class="product-actions">
-            <button class="product-btn product-btn-secondary">📖</button>
+            <button class="product-btn product-btn-secondary">↗</button>
             <button class="product-btn product-btn-primary">+</button>
           </div>
         </div>
 
         <!-- Product 4 -->
         <div class="product-card">
-          <div class="product-img">AirPods Pro</div>
+          <div class="product-img" role="img" aria-label="AirPods Pro"><div class="mini-device mini-pods" aria-hidden="true"><i></i><b></b></div></div>
           <div class="product-name">AirPods Pro (3rd Gen)</div>
           <p class="product-description">От 34 900 ₽ • Белые</p>
           <div class="product-price">
             <span>29 900 ₽</span>
           </div>
           <div class="product-actions">
-            <button class="product-btn product-btn-secondary">📖</button>
+            <button class="product-btn product-btn-secondary">↗</button>
             <button class="product-btn product-btn-primary">+</button>
           </div>
         </div>
@@ -793,14 +820,14 @@
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
         <!-- Product Card Example -->
         <div class="product-card">
-          <div class="product-img">iPhone 18 Pro</div>
+          <div class="product-img" role="img" aria-label="iPhone 18 Pro"><div class="mini-device mini-phone" aria-hidden="true"><i></i><b></b></div></div>
           <div class="product-name">iPhone 18 Pro Max 256GB</div>
           <p class="product-description">A18 Pro, 6.7", 48MP камера</p>
           <div class="product-price">
             <span>119 900 ₽</span>
           </div>
           <div class="product-actions">
-            <button class="product-btn product-btn-secondary">📖</button>
+            <button class="product-btn product-btn-secondary">↗</button>
             <button class="product-btn product-btn-primary">+</button>
           </div>
         </div>
@@ -944,60 +971,91 @@
   </footer>
 
   <script>
-    (() => {
-      const canvas = document.getElementById('starfield');
-      const context = canvas.getContext('2d');
-      const toggle = document.querySelector('.motion-toggle');
-      const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-      let paused = reducedMotion.matches;
-      let width = 0, height = 0, stars = [], frame = null, lastTime = null, elapsed = 0;
-      function draw() {
-        if (!context) return;
-        context.clearRect(0, 0, width, height);
-        for (const star of stars) {
-          const y = (star.y + elapsed * star.speed) % height;
-          context.globalAlpha = .35 + .5 * (.5 + .5 * Math.sin(elapsed * .8 + star.phase));
-          context.fillStyle = star.color;
-          context.beginPath();
-          context.arc(star.x, y, star.radius, 0, Math.PI * 2);
-          context.fill();
+  (() => {
+    const canvas = document.getElementById('starfield'), ctx = canvas.getContext('2d');
+    const toggle = document.querySelector('.motion-toggle'), reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    let paused = reduced.matches, frame = null, previous = null, time = 0, w = 0, h = 0, dpr = 1;
+    let mouse = { x: 0, y: 0 }, target = { x: 0, y: 0 };
+    const mobile = () => w < 700;
+    function resize() {
+      w = innerWidth; h = innerHeight; dpr = Math.min(devicePixelRatio || 1, 2);
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+      if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      draw();
+    }
+    function draw() {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, w, h);
+      const cx = w * (mobile() ? .7 : .77) + mouse.x * 22;
+      const cy = h * .46 + mouse.y * 18;
+      const scale = Math.min(w, h) * .58;
+      const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, scale * 1.3);
+      glow.addColorStop(0, '#73509b38'); glow.addColorStop(.5, '#522e7125'); glow.addColorStop(1, '#06060900');
+      ctx.fillStyle = glow; ctx.fillRect(0, 0, w, h);
+      // Inclined orbital filaments: projection of rotating rings in three dimensions.
+      for (let ring = 0; ring < 32; ring++) {
+        ctx.beginPath();
+        const radius = scale * (.62 + ring * .017);
+        for (let step = 0; step <= 180; step++) {
+          const angle = step / 180 * Math.PI * 2;
+          const warp = Math.sin(angle * 3 + time * .22 + ring * .13) * scale * .018;
+          const x = Math.cos(angle) * (radius + warp);
+          const y = Math.sin(angle) * (radius + warp);
+          const tilt = .33 + Math.sin(time * .12) * .12;
+          const px = cx + x * .84 - y * tilt;
+          const py = cy + x * .44 + y * tilt;
+          if (!step) ctx.moveTo(px, py); else ctx.lineTo(px, py);
         }
-        context.globalAlpha = 1;
+        ctx.strokeStyle = `rgba(${160+ring*2}, ${133+ring*2}, 235, ${.035 + .09 * Math.pow(.5+.5*Math.sin(ring*.3+time*.3), 3)})`;
+        ctx.lineWidth = ring % 6 === 0 ? 1.2 : .55; ctx.stroke();
       }
-      function resize() {
-        width = innerWidth; height = innerHeight;
-        const ratio = Math.min(devicePixelRatio || 1, 2);
-        canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio);
-        if (context) context.setTransform(ratio, 0, 0, ratio, 0, 0);
-        stars = Array.from({length: Math.min(220, Math.floor(width * height / 5500))}, () => ({
-          x: Math.random() * width, y: Math.random() * height,
-          radius: .4 + Math.random() * 1.1, speed: 1 + Math.random() * 4,
-          phase: Math.random() * Math.PI * 2, color: Math.random() > .7 ? '#8ccbf5' : '#e5eaff'
-        }));
-        draw();
+      // Traveling light trails and depth particles, without external assets.
+      ctx.globalCompositeOperation = 'lighter';
+      for (let i = 0; i < (mobile() ? 100 : 230); i++) {
+        const angle = i * 2.39996 + time * (.025 + (i % 5) * .006);
+        const radius = scale * (.6 + (i % 71) / 90);
+        const x = Math.cos(angle) * radius, y = Math.sin(angle) * radius;
+        const px = cx + x * .84 - y * .37, py = cy + x * .44 + y * .37;
+        const pulse = .3 + .7 * (.5 + .5 * Math.sin(time + i));
+        ctx.fillStyle = `rgba(211, 189, 255, ${pulse * .65})`;
+        ctx.beginPath(); ctx.arc(px, py, i % 13 === 0 ? 1.5 : .65, 0, Math.PI * 2); ctx.fill();
+        if (i % 13 === 0) {
+          ctx.strokeStyle = `rgba(192, 157, 255, ${pulse * .16})`; ctx.lineWidth = 1;
+          ctx.beginPath();ctx.moveTo(px, py);ctx.lineTo(px + Math.sin(angle)*24, py - Math.cos(angle)*12);ctx.stroke();
+        }
       }
-      function animate(time) {
-        frame = null;
-        if (paused || document.hidden) { lastTime = null; return; }
-        if (lastTime !== null) elapsed += Math.min((time - lastTime) / 1000, .1);
-        lastTime = time;
-        draw();
-        frame = requestAnimationFrame(animate);
-      }
-      function sync() {
-        document.body.classList.toggle('motion-paused', paused || document.hidden);
-        toggle.setAttribute('aria-pressed', String(paused));
-        toggle.textContent = paused ? 'Включить анимацию' : 'Пауза анимации';
-        if (frame !== null) cancelAnimationFrame(frame);
-        frame = null; lastTime = null;
-        if (!paused && !document.hidden) frame = requestAnimationFrame(animate);
-      }
-      toggle.addEventListener('click', () => { paused = !paused; sync(); });
-      reducedMotion.addEventListener('change', () => { paused = reducedMotion.matches; sync(); });
-      document.addEventListener('visibilitychange', sync);
-      addEventListener('resize', resize);
-      resize(); sync();
-    })();
+      ctx.globalCompositeOperation = 'source-over';
+    }
+    function animate(now) {
+      frame = null; if (paused || document.hidden) return;
+      if (previous !== null) time += Math.min((now - previous) / 1000, .05);
+      previous = now; mouse.x += (target.x - mouse.x)*.035; mouse.y += (target.y - mouse.y)*.035;
+      document.querySelector('.device').style.setProperty('--tilt-x', `${mouse.x * 20}deg`);
+      document.querySelector('.device').style.setProperty('--tilt-y', `${-mouse.y * 12}deg`);
+      draw(); frame = requestAnimationFrame(animate);
+    }
+    function sync() {
+      document.body.classList.toggle('motion-paused', paused || document.hidden);
+      toggle.setAttribute('aria-pressed', String(paused)); toggle.textContent = paused ? '▷ Включить движение' : 'Ⅱ Пауза движения';
+      if (frame !== null) cancelAnimationFrame(frame); frame = null; previous = null;
+      document.querySelectorAll('.reveal').forEach(el => { if (paused) el.classList.add('visible'); });
+      if (!paused && !document.hidden) frame = requestAnimationFrame(animate);
+    }
+    toggle.addEventListener('click', () => { paused = !paused; sync(); });
+    reduced.addEventListener('change', () => { paused = reduced.matches; sync(); });
+    document.addEventListener('visibilitychange', sync); addEventListener('resize', resize);
+    addEventListener('pointermove', e => { target.x = e.clientX / w - .5; target.y = e.clientY / h - .5; }, {passive: true});
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('pointermove', e => { if (paused) return; const r = card.getBoundingClientRect(); card.style.setProperty('--mx', `${e.clientX-r.left}px`); card.style.setProperty('--my', `${e.clientY-r.top}px`); });
+    });
+    const observer = 'IntersectionObserver' in window ? new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    }), {threshold: .08}) : null;
+    document.querySelectorAll('.product-card, .feature-card, .review-card, .products-title, .about-title, .banner').forEach(el => {
+      if (observer) { el.classList.add('reveal'); observer.observe(el); }
+    });
+    resize(); sync();
+  })();
   </script>
 </body>
 </html>
