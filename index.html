@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iSpace Studio — Главная</title>
+  <style>
+    :root {
+      --color-cosmos-deep: #05060f;
+      --color-cosmos-purple: #5b3df2;
+      --color-cosmos-cyan: #16c7d4;
+      --color-cosmos-pink: #e84d8f;
+      --color-cosmos-blue: #2b6cf6;
+      --color-apple-ink: #05060f;
+      --color-apple-black: #0a0a1a;
+      --color-apple-gray: #9aa0b8;
+      --color-apple-mid-gray: #c8cce8;
+      --color-apple-light-gray: #eef0ff;
+      --color-apple-white: #fbfbff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #05060f 0%, #1a0a2a 100%);
+      color: #fbfbff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .header-shell {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(10, 10, 30, 0.78);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .header {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .logo-mark {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-mark svg {
+      width: 100%;
+      height: 100%;
+      fill: none;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .logo-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .logo-tagline {
+      font-size: 0.7rem;
+      color: #9aa0b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .nav {
+      display: none;
+    }
+
+    .nav-desktop {
+      display: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #9aa0b8;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      transition: all 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-links a.active {
+      background: linear-gradient(135deg, #5b3df2, #16c7d4);
+      color: #fff;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .icon-btn:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 26px -12px rgba(91, 61, 242, 0.9);
+    }
+
+    .badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: linear-gradient(135deg, #e84d8f, #5b3df2);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      width: 20px;
+      height: 20px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px -4px rgba(232, 77, 143, 0.6);
+    }
+
+    .section-pad {
+      padding-block: 6rem;
+    }
+
+    @media (min-width: 1024px) {
+      .section-pad { padding-block: 8.5rem; }
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .cta-glow {
+      display: inline-block;
+      position: relative;
+      isolation: isolate;
+      padding: 1rem 2rem;
+      font-weight: 600;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #5b3df2, #16c7d4);
+      color: #fff;
+      text-decoration: none;
+      transition: transform 0.25s ease;
+      box-shadow: 0 10px 30px -12px rgba(91, 61, 242, 0.9);
+    }
+
+    .cta-glow:hover {
+      transform: translateY(-3px) scale(1.015);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 4rem 0;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+    }
+
+    .hero-h1 span {
+      background: linear-gradient(135deg, #16c7d4, #5b3df2, #e84d8f);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-p {
+      font-size: 1.25rem;
+      color: #9aa0b8;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .products-section {
+      background: linear-gradient(135deg, rgba(91, 61, 242, 0.1) 0%, transparent 70%);
+    }
+
+    .products-title {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 3rem;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .product-card {
+      background: rgba(10, 10, 30, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .product-img {
+      height: 180px;
+      background: linear-gradient(135deg, rgba(91, 61, 242, 0.2), rgba(22, 199, 212, 0.1));
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.5rem;
+    }
+
+    .product-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-description {
+      font-size: 0.875rem;
+      color: #9aa0b8;
+      margin-bottom: 1rem;
+    }
+
+    .product-price {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .product-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .product-btn-primary {
+      background: linear-gradient(135deg, #5b3df2, #16c7d4);
+      color: #fff;
+      border: none;
+    }
+
+    .product-btn-primary:hover {
+      opacity: 0.9;
+      transform: scale(1.05);
+    }
+
+    .product-btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .product-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .catalog-section {
+      position: relative;
+      padding: 6rem 0;
+    }
+
+    .catalog-title {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+
+    .catalog-description {
+      text-align: center;
+      color: #9aa0b8;
+      margin-bottom: 2rem;
+    }
+
+    .category-filter {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .category-btn {
+      padding: 0.5rem 1.5rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #9aa0b8;
+      background: rgba(255, 255, 255, 0.05);
+      transition: all 0.25s ease;
+    }
+
+    .category-btn:hover {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .category-btn.active {
+      background: linear-gradient(135deg, #5b3df2, #16c7d4);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .category-btn.soon {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .about-section {
+      position: relative;
+      padding: 8rem 0 6rem;
+      text-align: center;
+    }
+
+    .about-title {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 3rem;
+    }
+
+    .about-title span {
+      background: linear-gradient(135deg, #16c7d4, #e84d8f);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: rgba(10, 10, 30, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      text-align: left;
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #5b3df2, #16c7d4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .feature-icon.star {
+      background: linear-gradient(135deg, #e84d8f, #5b3df2);
+    }
+
+    .feature-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-text {
+      font-size: 0.875rem;
+      color: #9aa0b8;
+      line-height: 1.5;
+    }
+
+    .reviews-section {
+      padding: 6rem 0;
+    }
+
+    .reviews-title {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 3rem;
+    }
+
+    .review-card {
+      background: rgba(10, 10, 30, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+
+    .review-stars {
+      color: #fbbf24;
+      margin-bottom: 1rem;
+    }
+
+    .review-comment {
+      font-style: italic;
+      color: #9aa0b8;
+      margin-bottom: 1rem;
+    }
+
+    .review-author {
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .banner {
+      position: relative;
+      background: linear-gradient(135deg, rgba(91, 61, 242, 0.2), rgba(22, 199, 212, 0.15));
+      border-radius: 2rem;
+      padding: 3rem;
+      margin-bottom: 6rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .banner-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .banner-h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer {
+      background: rgba(10, 10, 30, 0.95);
+      padding: 3rem 0 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      color: #9aa0b8;
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: #16c7d4;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      color: #9aa0b8;
+    }
+
+    @media (max-width: 768px) {
+      .hero-h1 { font-size: 2.25rem; }
+      .products-title { font-size: 2rem; }
+      .about-title { font-size: 2rem; }
+      .reviews-title { font-size: 2rem; }
+      .banner { padding: 2rem; }
+      .banner-h2 { font-size: 1.5rem; }
+      .header { padding: 1rem; }
+    }
+
+    /* Decorative universe stays behind the entire storefront. */
+    body { background: #040610; isolation: isolate; }
+    .space-scene { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
+      background: radial-gradient(ellipse at 75% 20%, #24164b 0%, transparent 55%),
+                  radial-gradient(ellipse at 10% 75%, #092b40 0%, transparent 55%), #040610; }
+    #starfield { width: 100%; height: 100%; display: block; }
+    .nebula { position: absolute; inset: -20%; opacity: .45;
+      background: radial-gradient(ellipse at 30% 40%, #6934aa66, transparent 40%),
+                  radial-gradient(ellipse at 75% 65%, #168baa44, transparent 35%);
+      animation: nebula-drift 35s ease-in-out infinite alternate; }
+    .planet { position: absolute; border-radius: 50%; animation: orbit-float 18s ease-in-out infinite alternate; }
+    .planet-large { width: clamp(130px, 23vw, 330px); aspect-ratio: 1; right: -5%; top: 15%;
+      background: radial-gradient(circle at 28% 25%, #b1c9f7 0%, #6676b6 18%, #39336b 43%, #100f25 72%);
+      box-shadow: inset -25px -20px 45px #02040c, 0 0 65px #8578ed22; opacity: .75; }
+    .planet-ring { width: 190%; height: 35%; position: absolute; left: -45%; top: 32%;
+      border: 13px solid #969cce55; border-left-color: #bac6f788; border-radius: 50%;
+      transform: rotate(-30deg); box-shadow: 0 0 0 5px #aabce71a, 0 0 0 12px #aabce711; }
+    .planet-small { width: clamp(55px, 8vw, 110px); aspect-ratio: 1; left: 5%; top: 68%;
+      background: radial-gradient(circle at 30% 25%, #9ddfe6, #287c98 30%, #0b203b 70%);
+      box-shadow: 0 0 40px #1e9cb522; animation-duration: 24s; }
+    .spacecraft { position: absolute; width: 66px; left: -100px; top: 48%;
+      filter: drop-shadow(0 0 12px #61def088); animation: spacecraft-flight 38s linear infinite; }
+    .spacecraft svg { width: 100%; display: block; }
+    .meteor { position: absolute; left: 70%; top: -10%; width: 150px; height: 2px;
+      background: linear-gradient(90deg, transparent, #abdeff); border-radius: 50%;
+      opacity: 0; transform: rotate(135deg); animation: meteor-flight 13s linear infinite; }
+    .meteor.second { left: 40%; animation-delay: 6s; animation-duration: 19s; }
+    .motion-toggle { position: fixed; right: 18px; bottom: 18px; z-index: 45; padding: 10px 15px;
+      border: 1px solid #b2c6ff40; border-radius: 24px; color: #dce8ff; background: #0a1026e8;
+      font: inherit; font-size: 12px; cursor: pointer; backdrop-filter: blur(12px); }
+    .motion-toggle:focus-visible { outline: 2px solid #6ce4ee; outline-offset: 4px; }
+    .motion-paused .space-scene * { animation-play-state: paused !important; }
+    .hero { padding: 7rem 0 8rem; }
+    .hero-content { position: relative; }
+    .hero-h1 { font-size: clamp(2.25rem, 5vw, 4.5rem); letter-spacing: -.045em; line-height: 1.08; }
+    .hero-p { line-height: 1.7; color: #bec6db; }
+    .hero-eyebrow { color: #8cdae8; text-transform: uppercase; letter-spacing: .22em;
+      font-size: .7rem; margin-bottom: 1.7rem; }
+    .hero-actions { align-items: center; }
+    .hero-actions .product-btn { padding: 1rem 2rem; text-decoration: none; }
+    .product-card, .feature-card, .review-card { background: #0c1025c9; backdrop-filter: blur(12px); border-color: #a3b8ed26; }
+    .product-card:hover { border-color: #79c5ed66; box-shadow: 0 15px 45px #132c6855; }
+    .icon-btn { position: relative; }
+    .logo-mark { color: #92dcf5; font-size: 32px; }
+    @keyframes nebula-drift { to { transform: translate(5%, -4%) rotate(8deg); } }
+    @keyframes orbit-float { to { transform: translate(-15px, -35px) rotate(8deg); } }
+    @keyframes spacecraft-flight {
+      0% { transform: translate(0, 90px) rotate(-15deg); }
+      100% { transform: translate(calc(100vw + 220px), -240px) rotate(-15deg); }
+    }
+    @keyframes meteor-flight {
+      0%, 88% { opacity: 0; transform: translate(0, 0) rotate(135deg); }
+      90% { opacity: .8; }
+      100% { opacity: 0; transform: translate(-65vw, 65vh) rotate(135deg); }
+    }
+    @media (min-width: 1200px) { .nav { display: block; } }
+    @media (max-width: 600px) {
+      .hero { padding: 5rem 0; }
+      .planet-large { right: -70px; top: 25%; opacity: .45; }
+      .container { padding-inline: 1.25rem; }
+      .header-actions { gap: .4rem; }
+      .logo-name { font-size: 1.15rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; padding-bottom: 3rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .space-scene * { animation: none !important; }
+      .product-card, .cta-glow, .product-btn { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="space-scene" aria-hidden="true">
+    <div class="nebula"></div>
+    <canvas id="starfield"></canvas>
+    <div class="planet planet-large"><div class="planet-ring"></div></div>
+    <div class="planet planet-small"></div>
+    <div class="spacecraft">
+      <svg viewBox="0 0 100 60" fill="none">
+        <path d="M30 22 4 30l26 8-9-8Z" fill="#64dfff" opacity=".7"/>
+        <path d="m37 20 6-16 20 17M37 40l6 16 20-17" fill="#7779c8"/>
+        <path d="M25 30Q58 2 94 30 58 58 25 30Z" fill="#d6e5f7"/>
+        <path d="M25 30h69Q58 58 25 30Z" fill="#737caa"/>
+        <circle cx="65" cy="27" r="8" fill="#0b2847" stroke="#66dbef" stroke-width="3"/>
+      </svg>
+    </div>
+    <div class="meteor"></div><div class="meteor second"></div>
+  </div>
+  <button class="motion-toggle" type="button" aria-pressed="false">Пауза анимации</button>
+
+  <!-- Header -->
+  <header class="header-shell">
+    <div class="header">
+      <a href="/" class="logo">
+        <div class="logo-mark" aria-hidden="true">✧</div>
+        <div class="logo-text">
+          <span class="logo-name">iSpace Studio</span>
+          <span class="logo-tagline">Tech Store</span>
+        </div>
+      </a>
+      
+      <nav class="nav">
+        <ul class="nav-links">
+          <li><a href="/" class="active">Главная</a></li>
+          <li><a href="/catalog">Каталог</a></li>
+          <li><a href="#about">О нас</a></li>
+          <li><a href="#reviews">Отзывы</a></li>
+          <li><a href="#promo">Акции</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <div class="icon-btn" title="Избранное">
+          ❤️
+          <span class="badge">3</span>
+        </div>
+        <div class="icon-btn" title="Корзина">
+          🛒
+          <span class="badge">2</span>
+        </div>
+        <a href="/login" class="icon-btn" title="Войти">
+          🔑
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content container">
+      <p class="hero-eyebrow">Твоя вселенная технологий</p>
+      <h1 class="hero-h1">
+        Открой для себя<br>
+        <span>превосходное качество</span><br>
+        в каждой детали!
+      </h1>
+      <p class="hero-p">
+        В iSpace техника — не просто устройства, а искусство.
+        Приглашаем вас в уникальное путешествие, где каждый
+        продукт — встреча с идеальным вкусом технологий.
+      </p>
+      <div class="hero-actions">
+        <a href="#catalog" class="cta-glow">Выбрать технику</a>
+        <a href="/cart" class="product-btn product-btn-secondary">Сделать заказ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Products -->
+  <section class="products-section section-pad">
+    <div class="container">
+      <h2 class="products-title">Популярные товары</h2>
+      <div class="products-grid">
+        <!-- Product 1 -->
+        <div class="product-card">
+          <div class="product-img">iPhone 18 Pro</div>
+          <div class="product-name">iPhone 18 Pro Max 256GB</div>
+          <p class="product-description">От 129 900 ₽ • Синий спектр</p>
+          <div class="product-price">
+            <span>119 900 ₽</span>
+          </div>
+          <div class="product-actions">
+            <button class="product-btn product-btn-secondary">📖</button>
+            <button class="product-btn product-btn-primary">+</button>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+          <div class="product-img">MacBook Pro</div>
+          <div class="product-name">MacBook Pro 14" M4</div>
+          <p class="product-description">От 149 900 ₽ • Серая</p>
+          <div class="product-price">
+            <span>139 900 ₽</span>
+          </div>
+          <div class="product-actions">
+            <button class="product-btn product-btn-secondary">📖</button>
+            <button class="product-btn product-btn-primary">+</button>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card">
+          <div class="product-img">Apple Watch</div>
+          <div class="product-name">Apple Watch Ultra 2</div>
+          <p class="product-description">От 59 900 ₽ • Чёрный</p>
+          <div class="product-price">
+            <span>49 900 ₽</span>
+          </div>
+          <div class="product-actions">
+            <button class="product-btn product-btn-secondary">📖</button>
+            <button class="product-btn product-btn-primary">+</button>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card">
+          <div class="product-img">AirPods Pro</div>
+          <div class="product-name">AirPods Pro (3rd Gen)</div>
+          <p class="product-description">От 34 900 ₽ • Белые</p>
+          <div class="product-price">
+            <span>29 900 ₽</span>
+          </div>
+          <div class="product-actions">
+            <button class="product-btn product-btn-secondary">📖</button>
+            <button class="product-btn product-btn-primary">+</button>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center;">
+        <a href="/catalog" class="cta-glow">Перейти в каталог</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Catalog Section -->
+  <section class="catalog-section" id="catalog">
+    <div class="container">
+      <h2 class="catalog-title">Каталог</h2>
+      <p class="catalog-description">
+        Оригинальная техника Apple — iPhone, Mac, Watch, iPad и аксессуары.
+        Выберите категорию и добавьте устройство в корзину.
+      </p>
+
+      <div class="category-filter">
+        <button class="category-btn active">Все</button>
+        <button class="category-btn">iPhone</button>
+        <button class="category-btn">Mac</button>
+        <button class="category-btn">Watch</button>
+        <button class="category-btn soon">Accessories <span style="font-size: 0.7rem;">(скоро)</span></button>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+        <!-- Product Card Example -->
+        <div class="product-card">
+          <div class="product-img">iPhone 18 Pro</div>
+          <div class="product-name">iPhone 18 Pro Max 256GB</div>
+          <p class="product-description">A18 Pro, 6.7", 48MP камера</p>
+          <div class="product-price">
+            <span>119 900 ₽</span>
+          </div>
+          <div class="product-actions">
+            <button class="product-btn product-btn-secondary">📖</button>
+            <button class="product-btn product-btn-primary">+</button>
+          </div>
+        </div>
+        <!-- More products would be listed here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <h2 class="about-title">iSpace <span>это</span></h2>
+      
+      <div class="about-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon star">★</div>
+          <div class="feature-title">Высокое качество техники</div>
+          <p class="feature-text">Только оригинальные устройства и внимание к каждой детали. Каждое устройство проходит полную проверку — гарантируем стабильную работу и насыщенную производительность.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon star">★</div>
+          <div class="feature-title">Индивидуальный подход к каждому клиенту</div>
+          <p class="feature-text">Помогаем с выбором техники с учётом ваших задач, внимательно относимся к каждому гостю и создаём комфортную атмосферу покупки.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon">+</div>
+          <div class="feature-title">Атмосфера вдохновения и уюта</div>
+          <p class="feature-text">Стильный шоурум, где приятно находиться: можно попробовать устройства, провести время и получить консультацию в спокойной обстановке.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon">+</div>
+          <div class="feature-title">Профессиональная команда экспертов</div>
+          <p class="feature-text">Специалисты, которые знают особенности каждой модели, делятся опытом и тщательно подходят к подбору устройства под ваши задачи.</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 3rem; text-align: center;">
+        <a href="#catalog" class="cta-glow">Заказать</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews Section -->
+  <section class="reviews-section" id="reviews">
+    <div class="container">
+      <h2 class="reviews-title">Отзывы</h2>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+        <!-- Review 1 -->
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-comment">«Отличный сервис! Получил iPhone 18 Pro в оригинальном комплекте, все проверено. Быстрая доставка, всё как на фабрике!»</p>
+          <p class="review-author">— Алексей К., покупатель</p>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-comment">«Рекомендую iSpace Studio! Покупал MacBook Pro для работы, эксперты помогли выбрать оптимальную конфигурацию. Упаковка безупречная.»</p>
+          <p class="review-author">— Мария С., дизайнер</p>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card">
+          <div class="review-stars">★★★★☆</div>
+          <p class="review-comment">«Отличные AirPods Pro! Звук превосходный, батарея держит, как обещали. Обслуживание на высоте. Спасибо за быструю доставку!»</p>
+          <p class="review-author">— Дмитрий П., инженер</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Test Banner -->
+  <section class="banner" id="promo">
+    <div class="banner-content container">
+      <h2 class="banner-h2">Узнай, какая техника подходит тебе больше всего</h2>
+      <a href="#catalog" class="cta-glow">Пройти тест</a>
+      <div style="margin-top: 1rem; font-size: 0.875rem; color: rgba(255, 255, 255, 0.6);">
+        <a href="/" style="color: #16c7d4; text-decoration: none;">Новости магазина только для своих →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="/" class="logo" style="display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: #fff;">
+            <div class="logo-mark" aria-hidden="true">✧</div>
+            <div class="logo-text">
+              <span class="logo-name">iSpace Studio</span>
+              <span class="logo-tagline">Tech Store</span>
+            </div>
+          </a>
+          <p style="color: #9aa0b8; margin-top: 1rem; font-size: 0.875rem;">
+            Оригинальная техника Apple с доставкой по всей стране.
+          </p>
+        </div>
+
+        <div>
+          <div class="footer-title">Магазин</div>
+          <ul class="footer-links">
+            <li><a href="#catalog">Каталог</a></li>
+            <li><a href="#about">О нас</a></li>
+            <li><a href="#reviews">Отзывы</a></li>
+            <li><a href="#promo">Акции</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-title">Покупателям</div>
+          <ul class="footer-links">
+            <li><a href="#">Доставка и оплата</a></li>
+            <li><a href="#">Гарантия</a></li>
+            <li><a href="#">Возврат</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-title">Контакты</div>
+          <ul class="footer-links">
+            <li><a href="mailto:hello@ispace.store">hello@ispace.store</a></li>
+            <li><a href="tel:+79000000000">+7 900 000-00-00</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 iSpace Studio. Все права защищены.</p>
+        <p>Сайт не является официальным представителем Apple Inc.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const canvas = document.getElementById('starfield');
+      const context = canvas.getContext('2d');
+      const toggle = document.querySelector('.motion-toggle');
+      const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+      let paused = reducedMotion.matches;
+      let width = 0, height = 0, stars = [], frame = null, lastTime = null, elapsed = 0;
+      function draw() {
+        if (!context) return;
+        context.clearRect(0, 0, width, height);
+        for (const star of stars) {
+          const y = (star.y + elapsed * star.speed) % height;
+          context.globalAlpha = .35 + .5 * (.5 + .5 * Math.sin(elapsed * .8 + star.phase));
+          context.fillStyle = star.color;
+          context.beginPath();
+          context.arc(star.x, y, star.radius, 0, Math.PI * 2);
+          context.fill();
+        }
+        context.globalAlpha = 1;
+      }
+      function resize() {
+        width = innerWidth; height = innerHeight;
+        const ratio = Math.min(devicePixelRatio || 1, 2);
+        canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio);
+        if (context) context.setTransform(ratio, 0, 0, ratio, 0, 0);
+        stars = Array.from({length: Math.min(220, Math.floor(width * height / 5500))}, () => ({
+          x: Math.random() * width, y: Math.random() * height,
+          radius: .4 + Math.random() * 1.1, speed: 1 + Math.random() * 4,
+          phase: Math.random() * Math.PI * 2, color: Math.random() > .7 ? '#8ccbf5' : '#e5eaff'
+        }));
+        draw();
+      }
+      function animate(time) {
+        frame = null;
+        if (paused || document.hidden) { lastTime = null; return; }
+        if (lastTime !== null) elapsed += Math.min((time - lastTime) / 1000, .1);
+        lastTime = time;
+        draw();
+        frame = requestAnimationFrame(animate);
+      }
+      function sync() {
+        document.body.classList.toggle('motion-paused', paused || document.hidden);
+        toggle.setAttribute('aria-pressed', String(paused));
+        toggle.textContent = paused ? 'Включить анимацию' : 'Пауза анимации';
+        if (frame !== null) cancelAnimationFrame(frame);
+        frame = null; lastTime = null;
+        if (!paused && !document.hidden) frame = requestAnimationFrame(animate);
+      }
+      toggle.addEventListener('click', () => { paused = !paused; sync(); });
+      reducedMotion.addEventListener('change', () => { paused = reducedMotion.matches; sync(); });
+      document.addEventListener('visibilitychange', sync);
+      addEventListener('resize', resize);
+      resize(); sync();
+    })();
+  </script>
+</body>
+</html>
